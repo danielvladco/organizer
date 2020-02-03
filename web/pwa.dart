@@ -1,5 +1,6 @@
 import 'package:pwa/worker.dart';
 import 'package:organizer/pwa/offline_urls.g.dart' as offline;
+import 'package:service_worker/worker.dart' as sw;
 
 /// The Progressive Web Application's entry point.
 void main() {
@@ -26,4 +27,11 @@ void main() {
 
   // Start the worker.
   worker.run(version: offline.lastModified);
+
+  sw.addEventListener("fetch", (e) {
+    //TODO this is not ideal for our usecase https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
+    e.respondWith(sw.caches.match(e.request).then((res) {
+      return res ?? sw.fetch(e.request);
+    }));
+  });
 }

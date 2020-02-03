@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Organiser',
       theme: ThemeData(
-          primarySwatch: Colors.purple, primaryColor: Colors.purple[900]),
+          primarySwatch: Colors.purple,
+          primaryColor: Colors.purple[900]),
       initialRoute: "/territories",
       routes: {
         "/territories": (context) {
